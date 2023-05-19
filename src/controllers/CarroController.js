@@ -27,5 +27,25 @@ module.exports = {
     }
 
     res.json(json)
+  },
+
+  insertCar: async (req, res) => {
+    let json = {error:'', result:{}}
+
+    let modelo = req.body.modelo
+    let placa = req.body.placa
+
+    if(modelo && placa) {
+      let codigoCarro = await CarroService.insertCar(modelo, placa)
+      json.result = {
+        codigo: codigoCarro,
+        modelo,
+        placa
+      }
+    } else {
+      json.error = 'Campos não enviados'
+    }
+
+    res.json(json)
   }
 }
