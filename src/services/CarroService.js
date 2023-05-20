@@ -1,9 +1,9 @@
+const { deleteCar } = require('../controllers/CarroController')
 const db = require('../db')
 
 module.exports = {
   getAllCars: () => {
     return new Promise((accepted, rejected) => {
-
       db.query('SELECT * FROM carros', (error, results) => {
         if(error) { 
           rejected(error)
@@ -17,7 +17,6 @@ module.exports = {
 
   getCar: (codigo) => {
     return new Promise((accepted, rejected) => {
-
       db.query('SELECT * FROM carros WHERE codigo = ?', [codigo], (error, results) => {
         if(error) {
           rejected(error)
@@ -36,7 +35,6 @@ module.exports = {
 
   insertCar: (modelo, placa) => {
     return new Promise((accepted, rejected) => {
-
       db.query('INSERT INTO carros (modelo, placa) VALUES (?, ?)', 
         [modelo, placa],
         (error, results) => {
@@ -47,6 +45,33 @@ module.exports = {
           accepted(results.insertCodigo)
 
         })
+    })
+  },
+
+  updateCar: (codigo, modelo, placa) => {
+    return new Promise((accepted, rejected) => {
+        db.query('UPDATE carros SET modelo = ?, placa = ? WHERE codigo = ?',
+          [modelo, placa, codigo],
+          (error, results) => {
+            if(error) {
+              rejected(error)
+              return
+            }
+            accepted(results)
+          }
+        )
+    })
+  },
+
+  deleteCar: (codigo) => {
+    return new Promise((accepted, rejected) => {
+      db.query('DELETE FROM carros WHERE codigo = ?', [codigo], (error, results) => {
+        if(error) {
+          rejected(error)
+          return
+        }
+        accepted(results)
+      })
     })
   }
 }
