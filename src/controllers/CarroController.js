@@ -10,6 +10,7 @@ module.exports = {
       json.result.push({
         codigo: carros[i].codigo, 
         descricao: carros[i].modelo,
+        placa: carros[i].placa,
       })
     }
 
