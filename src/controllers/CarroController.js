@@ -11,6 +11,8 @@ module.exports = {
         codigo: carros[i].codigo, 
         descricao: carros[i].modelo,
         placa: carros[i].placa,
+        cor: carros[i].cor,
+        ano: carros[i].ano,
       })
     }
 
@@ -36,13 +38,17 @@ module.exports = {
     let codigo = req.body.codigo
     let modelo = req.body.modelo
     let placa = req.body.placa
+    let cor = req.body.cor
+    let ano = req.body.ano
 
-    if(modelo && placa) {
+    if(modelo && placa && cor && ano) {
       let codigoCarro = await CarroService.insertCar(modelo, placa)
       json.result = {
         codigo: codigoCarro,
         modelo,
-        placa
+        placa,
+        cor,
+        ano
       }
     } else {
       json.error = 'Campos não enviados'
@@ -57,13 +63,17 @@ module.exports = {
     let codigo = req.params.codigo
     let modelo = req.body.modelo
     let placa = req.body.placa
+    let cor = req.body.cor
+    let ano = req.body.ano
 
     if(codigo && modelo && placa) {
       await CarroService.updateCar(codigo, modelo, placa)
       json.result = {
         codigo,
         modelo,
-        placa
+        placa,
+        cor,
+        ano
       }
     } else {
       json.error = 'Campos não enviados'

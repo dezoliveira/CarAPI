@@ -33,10 +33,10 @@ module.exports = {
     })
   },
 
-  insertCar: (modelo, placa) => {
+  insertCar: (modelo, placa, cor, ano) => {
     return new Promise((accepted, rejected) => {
-      db.query('INSERT INTO carros (modelo, placa) VALUES (?, ?)', 
-        [modelo, placa],
+      db.query('INSERT INTO carros (modelo, placa, cor, ano) VALUES (?, ?, ?, ?)', 
+        [modelo, placa, cor, ano],
         (error, results) => {
           if(error) {
             rejected(error)
@@ -48,10 +48,10 @@ module.exports = {
     })
   },
 
-  updateCar: (codigo, modelo, placa) => {
+  updateCar: (codigo, modelo, placa, cor, ano) => {
     return new Promise((accepted, rejected) => {
-        db.query('UPDATE carros SET modelo = ?, placa = ? WHERE codigo = ?',
-          [modelo, placa, codigo],
+        db.query('UPDATE carros SET modelo = ?, placa = ?, cor = ?, ano = ? WHERE codigo = ?',
+          [modelo, placa, cor, ano, codigo],
           (error, results) => {
             if(error) {
               rejected(error)
